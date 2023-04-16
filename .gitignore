@@ -1,0 +1,25 @@
+# Arquivos compilados
+/target/
+*.class
+
+# Arquivos de log
+*.log
+
+# Arquivos temporários
+*.tmp
+*.swp
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos do IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Arquivos do Maven
+/.mvn/
+mvnw
+mvnw.cmd

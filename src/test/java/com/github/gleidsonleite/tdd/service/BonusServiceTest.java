@@ -8,18 +8,42 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class BonusServiceTest {
     @Test
     public void bonusDeveriaSerZeroParaFuncionarioComSalarioMuitoAlto() {
         BonusService service = new BonusService();
-        BigDecimal bonus = service.calcularBonus(new Funcionario(
-                "caUdas",
-                LocalDate.now(),
-                new BigDecimal("25000")
-        ));
-
-        assertEquals(BigDecimal.ZERO, bonus);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.calcularBonus(
+                        new Funcionario(
+                            "caUdas",
+                            LocalDate.now(),
+                            new BigDecimal("25000")
+                        )
+                )
+        );
+    }
+    @Test
+    public void bonusDeveriaSerZeroParaFuncionarioComSalarioMuitoAltoMessage() {
+        BonusService service = new BonusService();
+        try {
+            service.calcularBonus(
+                    new Funcionario(
+                            "caUdas",
+                            LocalDate.now(),
+                            new BigDecimal("25000")
+                    )
+            );
+            fail();
+        } catch (IllegalArgumentException exception) {
+            assertEquals(
+                    "Funcionario com salario maior do que R$ 10.000,00 nao pode receber bonus!",
+                    exception.getMessage()
+            );
+        }
     }
 
     @Test
